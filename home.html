@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Register</title>
+  <style>
+    body{font-family:Arial, sans-serif;max-width:720px;margin:30px auto;padding:0 15px;}
+    form{display:flex;gap:8px;margin-bottom:18px;}
+    input[type=text],input[type=email]{flex:1;padding:8px;border:1px solid #ccc;border-radius:4px;}
+    button{padding:8px 12px;border-radius:4px;}
+    .entry{padding:8px;border-bottom:1px solid #eee;}
+    .error{color:#b00020;margin-bottom:12px;}
+  </style>
+</head>
+<body>
+  <h1>Enter Name & Email</h1>
+
+  {% if error %}<div class="error">{{ error }}</div>{% endif %}
+
+  <form method="post">{% csrf_token %}
+    {{ form.name }}{{ form.email }}
+    <button type="submit">Submit</button>
+  </form>
+
+  <h2>Saved entries</h2>
+  {% if people %}
+    {% for p in people %}
+      <div class="entry">{{ p.name }} — {{ p.email }}</div>
+    {% endfor %}
+  {% else %}
+    <div>No entries yet.</div>
+  {% endif %}
+</body>
+</html>
